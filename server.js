@@ -7,17 +7,17 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Workout", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
 });
 
 // routes
-// app.use(require("./routes/apiroutes.js"));
-
+app.use(require("./routes/apiroutes.js"));
 app.use(require("./routes/htmlroutes.js"));
 
 app.listen(PORT, () => {
